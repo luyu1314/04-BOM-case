@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+            width: 500px;
+            height: 400px;
+            border: 1px solid red;
+            margin: 100px 10px;
+            position: relative;
+        }
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <button>摇起来</button>
+    <button>别摇了，停下来</button>
+
+    <div class="box">
+        <img src="images/222.jpg" width="200"/>
+    </div>
+
+
+    <script>
+        //需求1：点击按钮1，让img不停的乱动，而且是随机值。（需要一个定时器）
+        //需求2：点击按钮2，清除定时器。
+
+
+        var btnArr = document.getElementsByTagName("button");
+        var img = document.getElementsByTagName("img")[0];
+        //定义一个全局变量，做定时器，将来能够关闭他
+        var timer = null;
+
+        //需求1：点击按钮1，让img不停的乱动，而且是随机值。（需要一个定时器）
+        btnArr[0].onclick = function () {
+            //点击第一个按钮，定义一个定时器
+            timer = setInterval(function () {
+                //随机两个值，给图片
+                var y = Math.random()*240;
+                var x = Math.random()*300;
+                //为img设置top和left值。
+                img.style.top = y+"px";
+                img.style.left = x+"px";
+            },30);
+        }
+
+
+        //需求2：点击按钮2，清除定时器。
+        btnArr[1].onclick = function () {
+            //点击第二个按钮，关闭定时器
+            clearInterval(timer);
+        }
+
+
+
+    </script>
+
+
+
+</body>
+</html>

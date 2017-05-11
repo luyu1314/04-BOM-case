@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #img1 {
+            position: fixed;
+            top: 50%;
+            margin-top: -220px;
+            left: 10px;
+        }
+        
+        #img2 {
+            position: fixed;
+            top: 50%;
+            margin-top: -220px;
+            right: 10px;
+        }
+        
+        .box {
+            width: 1210px;
+            margin: 100px auto;
+            color: red;
+            font: 28px/30px "simsun";
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/1.gif" id="img1" />
+    <img src="images/2.gif" id="img2" />
+
+    <div class="box">
+        五秒钟后关闭广告<br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br> 我能经得住多大诋毁,就能担得起多少赞美
+        <br>
+
+    </div>
+
+
+    <script>
+        //需求：5秒钟后关闭广告。（隐藏图片）
+        //步骤：定义一个定时器。5秒钟后隐藏两张图片。
+        var img = document.getElementsByTagName("img");
+        setTimeout(function() {
+            img[0].style.display = "none";
+            img[1].style.display = "none";
+        }, 5000);
+    </script>
+
+</body>
+
+</html>

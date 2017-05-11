@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <button>动起来...</button>
+    <div class="box" style="left: 0;"></div>
+    <script>
+        //需求：点击按钮，让div移动起来.
+        //技术点：动画原理： 盒子未来的位置 = 盒子当前位置+步长；
+
+        //步骤：
+        //1.获取元素。
+        //2.给盒子的位置重新赋值。（动画原理）
+        //3.盒子到达指定位置停止。
+
+        //1.获取元素。
+        var div = document.getElementsByTagName("div")[0];
+        var btn = document.getElementsByTagName("button")[0];
+
+        btn.onclick = function() {
+            //2.给盒子的位置重新赋值。（动画原理）（定时器完成。）
+            var timer = setInterval(function() {
+                //盒子未来的位置 = 盒子当前位置+步长；
+                //获取盒子当前的位置：div.style.left  带单位，去掉px
+                div.style.left = parseInt(div.style.left) + 10 + 'px';
+                //3.盒子到达指定位置停止。
+                if (parseInt(div.style.left) === 1000) {
+                    clearInterval(timer);
+                }
+            }, 30);
+        }
+    </script>
+
+</body>
+
+</html>

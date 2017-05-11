@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .w {
+            width: 1210px;
+            margin: 0 auto;
+        }
+        .site-nav {
+            height: 30px;
+            background-color: #ccc;
+        }
+        .top-banner {
+            background-color: pink
+        }
+        .tb {
+            position: relative
+        }
+        .img {
+            display: block;
+            height: 80px;
+            background-color: blue
+        }
+        .close-banner {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            color: red;
+            background: rgba(0,0,0,0.5);
+            text-align: center;
+            font: 700 16px/20px "simsun";
+            text-decoration: none;
+        }
+        .box {
+            height: 100px;
+            background-color: yellowgreen;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+
+    <script>
+        //需求：点击关闭按钮，topBanner盒子，透明度渐渐地变为0，然后在隐藏盒子。
+        //步骤:
+        //1.老三步。
+        //2.设置一个定时器，让透明度每次递减0.1；
+        //3.当透明度的值为0的时候，清除定时器，并且隐藏盒子。
+
+        window.onload = function () {
+
+            //1.老三步。
+            var closeBanner = document.getElementById("closeBanner");
+            var topBanner = document.getElementById("topBanner");
+
+//            var num = 1;
+
+            closeBanner.onclick = function () {
+                //2.设置一个定时器，让透明度每次递减0.1；
+                var timer = setInterval(function () {
+//                    num-=0.1;
+//                    topBanner.style.opacity = num;
+                    topBanner.style.opacity -= 0.1;
+                    //3.当透明度的值为0的时候，清除定时器，并且隐藏盒子。
+                    if(topBanner.style.opacity == 0){
+                        topBanner.className = "hide";
+                        clearInterval(timer);
+                    }
+                },30);
+            }
+
+
+        }
+    </script>
+
+</head>
+<body>
+    <!--顶部导航栏-->
+    <div class="site-nav">
+        <div class="w"></div>
+    </div>
+    <!--广告栏-->
+    <div class="top-banner" id="topBanner" style="opacity: 1">
+        <div class="w tb">
+            <a href="#" class="img"></a>
+            <!--关闭按钮-->
+            <a href="javascript:;" class="close-banner" id="closeBanner">×</a>
+            <!--<a href="javascript:void(0);" class="close-banner" id="closeBanner">×</a>-->
+        </div>
+    </div>
+    <!--所搜栏-->
+    <div class="w box"></div>
+
+
+
+
+
+</body>
+</html>

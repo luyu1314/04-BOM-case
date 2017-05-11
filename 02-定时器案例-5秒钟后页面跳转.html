@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+            width: 1210px;
+            margin: 100px auto;
+            color: red;
+            font: 28px/30px "simsun";
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    5秒钟后页面将跳转到<a href="http://www.baidu.com">百度官网</a>
+</div>
+
+<script>
+    //需求：5秒钟后页面将跳转；
+    //步骤：定义一个定时器，每次执行num-1;到0的时候页面跳转
+    var num = 5;
+    var timer = null;
+    var div = document.getElementsByTagName("div")[0];
+    timer = setInterval(fn, 1000);
+
+    function fn() {
+        num--;
+        div.innerHTML =num+ "秒钟后页面将跳转到<a href='http://www.baidu.com'>百度官网</a>";
+        if (num == 0) {
+            clearInterval(timer);
+           //直接跳转
+            location.href = "http://www.baidu.com";
+//            这个是窗口弹出：
+//            window.open( "http://www.baidu.com");
+        }
+    }
+
+</script>
+</body>
+</html>

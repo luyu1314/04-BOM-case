@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .box {
+            width: 500px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            position: relative;
+        }
+        a {
+            display: none;
+            width: 500px;
+            height: 400px;
+            text-align: center;
+            font: 100px/400px "simsun";
+        }
+        ul {
+            list-style: none;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            margin-left: -66px;
+        }
+        li {
+            float: left;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            margin: 0 2px;
+            border-radius: 50%;
+            background-color: #000;
+            color: #fff;
+            cursor: move;
+        }
+        span {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.4);
+            text-align: center;
+            font: 700 26px/60px "simsun";
+            top: 50%;
+            margin-top: -30px;
+            cursor: pointer;
+            color: #fff;
+        }
+        span:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .arrow-left {
+            left: 0;
+        }
+        .arrow-right {
+            right: 0;
+        }
+        .show {
+            display: block;
+        }
+        .current {
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            //给所有a链接一个背景色
+            var aArr = document.getElementsByTagName("a");
+            var color = ["yellowgreen","orange","pink","yellow","skyblue","purple"];
+            for(var i=0;i<aArr.length;i++){
+                aArr[i].style.background = color[i];
+            }
+
+
+            //需求1：点击右侧的span,切换a链接的显示（显示下一张）。下面的小li联动。
+            //需求2：点击左侧的span,切换a链接的显示（显示上一张）。下面的小li联动。
+            //需求3：添加和清除定时器。（1秒钟后下一张）
+            //需求4：点击下面的li，显示对应的a链接，li也要当前添加类，其他的清除类。
+                //技术点：排他思想。（干掉所有人，剩下我自己）
+
+
+            var liArr = document.getElementsByTagName("li");
+            var aArr = document.getElementsByTagName("a");
+            var spanArr = document.getElementsByTagName("span");
+            var box = document.getElementById("box");
+            var timer = null;
+            //需要一个计数器，从索引值0开始。
+            var num = 0;
+            //需求1：点击右侧的span,切换a链接的显示（显示下一张）。下面的小li联动。
+            //步骤：
+            //1.老三步。
+            spanArr[1].onclick = function () {
+                //点击以后显示下一张。所以需要num++；
+                num++;
+                //num要有显示，不能==6；等于6让他变为0；（索引值）
+                if(num === 6){
+                    num = 0;
+                }
+                //2.干掉所有人，（需要一个计数器）
+                for(var i=0;i<aArr.length;i++){
+                    aArr[i].className = "";
+                    //li同步
+                    liArr[i].className = "";
+                }
+                //3.剩下我自己。(指定索引值的a标签显示，而索引值由num定)
+                aArr[num].className = "show";
+                liArr[num].className = "current";
+            }
+
+
+            //需求2：点击左侧的span,切换a链接的显示（显示上一张）。下面的小li联动。
+            //和上面的span同理，但是反向。（num--,最小值为0.等于-1要变为5）
+            //1.老三步。
+            spanArr[0].onclick = function () {
+                //点击以后显示下一张。所以需要num++；
+                num--;
+                //num要有显示，不能==6；等于6让他变为0；（索引值）
+                if(num === -1){
+                    num = 5;
+                }
+                //2.干掉所有人，（需要一个计数器）
+                for(var i=0;i<aArr.length;i++){
+                    aArr[i].className = "";
+                    //li同步
+                    liArr[i].className = "";
+                }
+                //3.剩下我自己。(指定索引值的a标签显示，而索引值由num定)
+                aArr[num].className = "show";
+                liArr[num].className = "current";
+            }
+
+            //需求3：添加和清除定时器。（1秒钟后下一张）
+            //理论：定时器和右侧的span是一个逻辑。
+            timer = setInterval(function () {
+                //点击以后显示下一张。所以需要num++；
+                num++;
+                //num要有显示，不能==6；等于6让他变为0；（索引值）
+                if(num === 6){
+                    num = 0;
+                }
+                //2.干掉所有人，（需要一个计数器）
+                for(var i=0;i<aArr.length;i++){
+                    aArr[i].className = "";
+                    //li同步
+                    liArr[i].className = "";
+                }
+                //3.剩下我自己。(指定索引值的a标签显示，而索引值由num定)
+                aArr[num].className = "show";
+                liArr[num].className = "current";
+            },1000);
+
+            //鼠标进入清除定时器，移开开启定时器
+            box.onmouseover = function () {
+                clearInterval(timer);
+            }
+            box.onmouseout = function () {
+                timer = setInterval(function () {
+                    //点击以后显示下一张。所以需要num++；
+                    num++;
+                    //num要有显示，不能==6；等于6让他变为0；（索引值）
+                    if(num === 6){
+                        num = 0;
+                    }
+                    //2.干掉所有人，（需要一个计数器）
+                    for(var i=0;i<aArr.length;i++){
+                        aArr[i].className = "";
+                        //li同步
+                        liArr[i].className = "";
+                    }
+                    //3.剩下我自己。(指定索引值的a标签显示，而索引值由num定)
+                    aArr[num].className = "show";
+                    liArr[num].className = "current";
+                },1000);
+            }
+
+            //需求4：点击下面的li，显示对应的a链接，li也要当前添加类，其他的清除类。
+            //步骤：获取所有的li然后for循环绑定事件。事件本身，类似u右侧的span，只不过索引值需要处理。
+            for(var j=0;j<liArr.length;j++){
+                liArr[j].onclick = function () {
+                    //span需要定义一个索引值操作下一个显示的盒子。
+                        //li不需要，li点击哪个就是哪个；用他的innerHTML属性。
+//                    num++;
+//                    if(num === 6){
+//                        num = 0;
+//                    }
+                    num = this.innerHTML - 1;
+                    //2.干掉所有人，（需要一个计数器）
+                    for(var i=0;i<aArr.length;i++){
+                        aArr[i].className = "";
+                        //li同步
+                        liArr[i].className = "";
+                    }
+                    //3.剩下我自己。(指定索引值的a标签显示，而索引值由num定)
+                    aArr[num].className = "show";
+                    liArr[num].className = "current";
+                }
+            }
+
+
+
+
+        }
+    </script>
+
+</head>
+<body>
+
+    <div class="box" id="box">
+        <a href="#" class="show">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <ul>
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+        <div>
+            <span class="arrow-left"><</span>
+            <span class="arrow-right">></span>
+        </div>
+    </div>
+
+
+</body>
+</html>
